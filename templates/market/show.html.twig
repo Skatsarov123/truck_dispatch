@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Market{% endblock %}
+
+{% block body %}
+    <h1>Market</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Номер</th>
+                <td>{{ market.id }}</td>
+            </tr>
+            <tr>
+                <th>Дата на товарене</th>
+                <td>{{ market.loadingDate ? market.loadingDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Държава</th>
+                <td>{{ market.loadingCountry }}</td>
+            </tr>
+            <tr>
+                <th>Код</th>
+                <td>{{ market.loadingZip }}</td>
+            </tr>
+            <tr>
+                <th>Град</th>
+                <td>{{ market.loadingTown }}</td>
+            </tr>
+            <tr>
+                <th>Държава</th>
+                <td>{{ market.unloadingCounty }}</td>
+            </tr>
+            <tr>
+                <th>Код</th>
+                <td>{{ market.unloadingZip }}</td>
+            </tr>
+            <tr>
+                <th>Град</th>
+                <td>{{ market.unloadingTown }}</td>
+            </tr>
+            <tr>
+                <th>Разстояние</th>
+                <td>{{ market.distance }}</td>
+            </tr>
+            <tr>
+                <th>Тегло</th>
+                <td>{{ market.cargoWeight }}</td>
+            </tr>
+            <tr>
+                <th>Височина</th>
+                <td>{{ market.cargoHeight }}</td>
+            </tr>
+            <tr>
+                <th>Дължина</th>
+                <td>{{ market.cargoLength }}</td>
+            </tr>
+            <tr>
+                <th>Вид на товара</th>
+                <td>{{ market.cargoType ? market.cargoType|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Вид Ремарке</th>
+                <td>{{ market.trailerType ? market.trailerType|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Цена</th>
+                <td>{{ market.price }}</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+    <a href="{{ path('market_index') }}">Назад</a>
+
+    <a href="{{ path('market_edit', {'id': market.id}) }}">Редактирай</a>
+
+    {{ include('market/_delete_form.html.twig') }}
+{% endblock %}

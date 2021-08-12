@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+
+    {% endblock %}
+
+{% block body %}
+
+{#        {%- if invoice.seller.logo is not empty %}#}
+{#            <img src="{{ invoice.seller.logo }}" alt="">#}
+{#        {%- endif %}#}
+    <div id="seller">
+        <p>{{- invoice.bookingId.author.name}}</p>
+        <p>{{- invoice.bookingId.author.bulstat}}</p>
+        <p>{{- invoice.bookingId.author.vat}}</p>
+        <p>{{- invoice.bookingId.author.owner}}</p>
+
+    </div>
+
+    <div id="invoice">
+        <dl>
+            <dd>{{ invoice.identifier }}</dd>
+            <dt>Facture #</dt>
+
+{#            <dd>{{ invoice.publishDate|date('F j, Y') }}</dd>#}
+            <dt>Facture Date</dt>
+        </dl>
+
+        <dl class="invoice-total">
+            <dd>{{ invoice.bookingId.proposals.proposalprice }} ЛВ</dd>
+            <dt>Amount Due</dt>
+        </dl>
+    </div>
+
+    {%- if invoice.bookingId.customer is not empty %}
+        <div id="buyer">
+            <p>{{- invoice.bookingId.customer.name }}</p>
+            <p>{{ invoice.bookingId.customer.bulstat}}</p>
+            <p>{{ invoice.bookingId.customer.owner}}</p>
+        </div>
+    {%- endif %}
+    {% include 'invoice/_entry_list.html.twig' %}
+    <hr>
+
+    <div id="invoice-total">
+        <dl>
+            <dt><strong>Subtotal</strong></dt>
+            <dd><strong>{{ invoice.bookingId.proposals.proposalprice }}</strong></dd>
+
+{#            {%- for tax, value in invoice.total.taxes %}#}
+{#                <dt>{{ tax|default('TVA 0%') }}</dt>#}
+{#                <dd>{{ value|default(0) }}</dd>#}
+{#            {%- else %}#}
+{#                <dt>TVA 0%</dt>#}
+{#                <dd>0</dd>#}
+{#            {%- endfor %}#}
+        </dl>
+
+        <dl>
+            <dt><strong>Total</strong></dt>
+            <dd><strong>{{invoice.bookingId.proposals.proposalprice }}</strong></dd>
+
+            <dt>Amount Paid</dt>
+            <dd>-{{ invoice.bookingId.proposals.proposalprice|default('0.00') }}</dd>
+        </dl>
+
+        <dl class="invoice-total">
+            <dt>Amount Due</dt>
+            <dd>{{ invoice.bookingId.proposals.proposalprice }} ЛВ</dd>
+        </dl>
+    </div>
+
+{% endblock %}
+

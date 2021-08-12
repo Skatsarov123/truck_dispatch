@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Driver index{% endblock %}
+
+{% block body %}
+    <h1>Шофьори</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Номер</th>
+                <th>Имена</th>
+                <th>Шофьорска книжка</th>
+                <th>Телефон</th>
+                <th>Банка</th>
+                <th>Номер на сметка</th>
+                <th>ЕГН</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                <th>Действие</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for driver in drivers %}
+            <tr>
+                <td>{{ driver.id }}</td>
+                <td>{{ driver.Names }}</td>
+                <td>{{ driver.DriverLicense }}</td>
+                <td>{{ driver.Phone }}</td>
+                <td>{{ driver.BankName }}</td>
+                <td>{{ driver.Iban }}</td>
+                <td>{{ driver.Egn }}</td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('driver_edit', {'id': driver.id}) }}">Редактирай</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('driver_new') }}">Добави нов шофьор</a>
+{% endblock %}

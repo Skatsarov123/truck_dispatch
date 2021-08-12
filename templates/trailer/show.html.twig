@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trailer{% endblock %}
+
+{% block body %}
+    <h1>Trailer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ trailer.id }}</td>
+            </tr>
+            <tr>
+                <th>Identifier</th>
+                <td>{{ trailer.identifier }}</td>
+            </tr>
+            <tr>
+                <th>Height</th>
+                <td>{{ trailer.height }}</td>
+            </tr>
+            <tr>
+                <th>Length</th>
+                <td>{{ trailer.length }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ trailer.type ? trailer.type|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Mot</th>
+                <td>{{ trailer.mot ? trailer.mot|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('trailer_index') }}">back to list</a>
+
+    <a href="{{ path('trailer_edit', {'id': trailer.id}) }}">edit</a>
+
+    {{ include('trailer/_delete_form.html.twig') }}
+{% endblock %}

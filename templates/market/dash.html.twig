@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<form class="form-group" action="{{ path('dash') }}" method="post" onchange="this.form.submit()" >
+    <select class="custom-select" name="elselect">
+        <option value="0" selected="selected">Всички </option>
+        <option value="1">Активен </option>
+        <option value="2">Доставен</option>
+        <option value="3">Фактуриран</option>
+        <option value="4">Платен</option>
+        <option value="5">Отказан</option>
+    </select>
+    <input type="submit" value="Покажи">
+</form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Дата на товарене</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Разстояние</th>
+            <th>Тегло</th>
+            <th>Височина</th>
+            <th>Дължина</th>
+            <th>Вид на товара</th>
+            <th>Вид Ремарке</th>
+            <th>Цена</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for market in markets %}
+            <tr>
+                <td>{{ market.loadingDate ? market.loadingDate|date('Y-m-d') : '' }}</td>
+                <td>{{ market.loadingCountry }}</td>
+                <td>{{ market.loadingZip }}</td>
+                <td>{{ market.loadingTown }}</td>
+                <td>{{ market.unloadingCounty }}</td>
+                <td>{{ market.unloadingZip }}</td>
+                <td>{{ market.unloadingTown }}</td>
+                <td>{{ market.distance }}</td>
+                <td>{{ market.cargoWeight }}</td>
+                <td>{{ market.cargoHeight }}</td>
+                <td>{{ market.cargoLength }}</td>
+                <td> {% for mark in market.cargoType %}
+                        {{mark.name}}
+                    {% endfor %}</td>
+                <td> {% for trail in market.trailerType %}
+                        {{trail.name}}
+                    {% endfor %}</td>
+                <td>{{ market.price }}</td>
+                <td>
+                    {% if(app.user.id == market.author.id) %}
+                        <a href="{{ path('proposal_index', {'id': market.id}) }}">Оферти</a>
+                    {% endif %}
+                    <a href="{{ path('proposal_new',{'id': market.id}) }}">Предложения</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script>
+        $('[name="elselect"]').change(function() {
+            $(this).closest('form').submit();
+        });
+    </script>
+{% endblock %}

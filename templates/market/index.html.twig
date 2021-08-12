@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Market index{% endblock %}
+
+{% block body %}
+    <h1>Борса</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Компания</th>
+            <th>Дата на товарене</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Разстояние</th>
+            <th>Тегло</th>
+            <th>Височина</th>
+            <th>Дължина</th>
+            <th>Вид на товара</th>
+            <th>Вид Ремарке</th>
+            <th>Цена</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for market in markets %}
+            <tr>
+                <td>{{ market.author }}</td>
+                <td>{{ market.loadingDate ? market.loadingDate|date('Y-m-d') : '' }}</td>
+                <td>{{ market.loadingCountry }}</td>
+                <td>{{ market.loadingZip }}</td>
+                <td>{{ market.loadingTown }}</td>
+                <td>{{ market.unloadingCounty }}</td>
+                <td>{{ market.unloadingZip }}</td>
+                <td>{{ market.unloadingTown }}</td>
+                <td>{{ market.distance }}</td>
+                <td>{{ market.cargoWeight }}</td>
+                <td>{{ market.cargoHeight }}</td>
+                <td>{{ market.cargoLength }}</td>
+                <td> {% for mark in market.cargoType %}
+                        {{ mark.name }}
+                    {% endfor %}</td>
+                <td> {% for trail in market.trailerType %}
+                        {{ trail.name }}
+                    {% endfor %}</td>
+                <td>{{ market.price }}</td>
+                <td>
+                    {% if market.status.id == 1 %}
+                        {% if(app.user.company.id == market.author.id ) %}
+                            <a href="{{ path('proposal_index', {'id': market.id}) }}">Оферти</a>
+                        {% endif %}
+                    {% endif %}
+                    {% if market.status.id == 1 %}
+                        {% if app.user.company.id != market.author.id %}
+                            <a href="{{ path('proposal_new',{'id': market.id}) }}">Направи предложение</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('market_new') }}">Добави товар</a>
+{% endblock %}

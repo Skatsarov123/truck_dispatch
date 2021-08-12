@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Driver{% endblock %}
+
+{% block body %}
+    <h1>Driver</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Имена</th>
+                <td>{{ driver.Names }}</td>
+            </tr>
+            <tr>
+                <th>Шофьорска книжка</th>
+                <td>{{ driver.DriverLicense }}</td>
+            </tr>
+            <tr>
+                <th>Телефон</th>
+                <td>{{ driver.Phone }}</td>
+            </tr>
+            <tr>
+                <th>Банка</th>
+                <td>{{ driver.BankName }}</td>
+            </tr>
+            <tr>
+                <th>Номер на сметка</th>
+                <td>{{ driver.Iban }}</td>
+            </tr>
+            <tr>
+                <th>ЕГН</th>
+                <td>{{ driver.Egn }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('driver_index') }}">Назад</a>
+
+{% endblock %}

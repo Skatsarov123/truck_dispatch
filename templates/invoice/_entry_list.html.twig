@@ -1,0 +1,23 @@
+
+<table>
+    <thead>
+    <tr>
+        <th class="col1">Entry</th>
+        <th class="col2">Description</th>
+        <th class="col3">Price</th>
+        <th class="col4">Quantity</th>
+        <th class="col5">Line Total</th>
+    </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>{{ invoice.bookingId.market.loadingTown }}</td>
+            <td class="col3">{{ invoice.bookingId.proposals.proposalprice }}</td>
+            <td class="col4">{{ invoice.quantity }}</td>
+            <td class="col5">{{ invoice.bookingId.proposals.proposalprice }}</td>
+        </tr>
+
+    </tbody>
+</table>

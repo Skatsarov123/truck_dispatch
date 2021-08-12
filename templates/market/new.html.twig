@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Market{% endblock %}
+
+{% block body %}
+    <h1>Добави товар</h1>
+
+    {{ include('market/_form.html.twig') }}
+
+    <a href="{{ path('market_index') }}">Назад</a>
+{% endblock %}

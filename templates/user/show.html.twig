@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body %}
+    <h1>Потребител</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Номер</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Потребителско име</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Име</th>
+                <td>{{ user.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('user_index') }}">Назад</a>
+
+    <a href="{{ path('user_edit', {'id': user.id}) }}">Редактирай</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

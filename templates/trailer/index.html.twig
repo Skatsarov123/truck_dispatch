@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trailer index{% endblock %}
+
+{% block body %}
+    <h1>Trailer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Identifier</th>
+                <th>Height</th>
+                <th>Length</th>
+                <th>Type</th>
+                <th>Mot</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trailer in trailers %}
+            <tr>
+                <td>{{ trailer.id }}</td>
+                <td>{{ trailer.identifier }}</td>
+                <td>{{ trailer.height }}</td>
+                <td>{{ trailer.length }}</td>
+                <td>{{ trailer.type ? trailer.type|join(', ') : '' }}</td>
+                <td>{{ trailer.mot ? trailer.mot|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('trailer_show', {'id': trailer.id}) }}">show</a>
+                    <a href="{{ path('trailer_edit', {'id': trailer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('trailer_new') }}">Create new</a>
+{% endblock %}

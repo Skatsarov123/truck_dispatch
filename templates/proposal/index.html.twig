@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Proposal index{% endblock %}
+
+{% block body %}
+    <h1>Proposal index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Цена</th>
+                <th>Дата на товарене</th>
+                <th>Дата на разтоварване</th>
+                <th>Компания</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for proposal in proposals %}
+            <tr>
+                <td>{{ proposal.proposalPrice }}лв</td>
+                <td>{{ proposal.proposalLoadingDate ? proposal.proposalLoadingDate|date('Y-m-d') : '' }}</td>
+                <td>{{ proposal.proposalUnloadingDate ? proposal.proposalUnloadingDate|date('Y-m-d') : '' }}</td>
+                <td>{{ proposal.author }}</td>
+                <td>
+                    {% if proposal.isAccepted !=1  %}
+                  <div id="btn-block"> {{ include('proposal/_accept_form.html.twig') }}</div>
+                     {% endif%}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

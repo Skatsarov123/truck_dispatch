@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Market{% endblock %}
+
+{% block body %}
+    <h1>Редактирай товар</h1>
+    {{ include('booking/_form.html.twig', {'button_label': 'Запази'}) }}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Номер</th>
+            <td>{{ booking.market.id }}</td>
+        </tr>
+        <tr>
+            <th>Дата на товарене</th>
+            <td>{{ booking.market.loadingDate ? booking.market.loadingDate|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Държава</th>
+            <td>{{ booking.market.loadingCountry }}</td>
+        </tr>
+        <tr>
+            <th>Код</th>
+            <td>{{ booking.market.loadingZip }}</td>
+        </tr>
+        <tr>
+            <th>Град</th>
+            <td>{{ booking.market.loadingTown }}</td>
+        </tr>
+        <tr>
+            <th>Държава</th>
+            <td>{{ booking.market.unloadingCounty }}</td>
+        </tr>
+        <tr>
+            <th>Код</th>
+            <td>{{ booking.market.unloadingZip }}</td>
+        </tr>
+        <tr>
+            <th>Град</th>
+            <td>{{ booking.market.unloadingTown }}</td>
+        </tr>
+        <tr>
+            <th>Разстояние</th>
+            <td>{{ booking.market.distance }}</td>
+        </tr>
+        <tr>
+            <th>Тегло</th>
+            <td>{{ booking.market.cargoWeight }}</td>
+        </tr>
+        <tr>
+            <th>Височина</th>
+            <td>{{ booking.market.cargoHeight }}</td>
+        </tr>
+        <tr>
+            <th>Дължина</th>
+            <td>{{ booking.market.cargoLength }}</td>
+        </tr>
+        <tr>
+            <th>Вид на товара</th>
+            <td> {% for mark in booking.market.cargoType %}
+                    {{mark.name}}
+                {% endfor %}</td>
+        </tr>
+        <tr>
+            <th>Вид Ремарке</th>
+            <td> {% for trail in booking.market.trailerType %}
+                    {{trail.name}}
+                {% endfor %}</td>
+        </tr>
+        <tr>
+            <th>Цена</th>
+            <td>{{ booking.market.price }}</td>
+        </tr>
+
+        </tbody>
+
+    </table>
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('booking/_delete_form.html.twig') }}
+    {% endif %}
+    <a href="{{ path('booking_dash') }}">Назад</a>
+{% endblock %}

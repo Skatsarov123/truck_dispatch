@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Truck{% endblock %}
+
+{% block body %}
+    <h1>Truck</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ truck.id }}</td>
+            </tr>
+            <tr>
+                <th>Identifier</th>
+                <td>{{ truck.identifier }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ truck.model }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ truck.brand }}</td>
+            </tr>
+            <tr>
+                <th>Consumption</th>
+                <td>{{ truck.consumption }}</td>
+            </tr>
+            <tr>
+                <th>Mot</th>
+                <td>{{ truck.mot ? truck.mot|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('truck_index') }}">back to list</a>
+
+    <a href="{{ path('truck_edit', {'id': truck.id}) }}">edit</a>
+
+    {{ include('truck/_delete_form.html.twig') }}
+{% endblock %}

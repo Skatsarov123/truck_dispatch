@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('proposal_accept', {'id': proposal.id}) }}"
+      onsubmit="return confirm('Сигурни ли, че искате да приключите? ');">
+    <input type="hidden" name="_method" value="POST">
+    <button class="btn">Приеми</button>
+</form>

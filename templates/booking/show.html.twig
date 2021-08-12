@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Booking{% endblock %}
+
+{% block body %}
+    <h1>Товар</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Шофьор</th>
+            <td><a href="{{ path('driver_show', {'id': booking.drivers.id}) }}">{{ booking.drivers.names }}</a></td>
+        </tr>
+        <tr>
+            <th>Камион</th>
+            <td><a href="{{ path('truck_show', {'id': booking.truck.id}) }}">{{ booking.truck.identifier }}</a></td>
+        </tr>
+        <tr>
+            <th>Ремарке</th>
+            <td><a href="{{ path('trailer_show', {'id': booking.trailer.id}) }}">{{ booking.trailer.identifier }}</td>
+        </tr>
+        <tr>
+            <th>Адрес за товарене</th>
+            <td>{{ booking.loadingAddress }}</td>
+        </tr>
+        <tr>
+            <th>Дата на товарене</th>
+            <td>{{ booking.loadingDate ? booking.loadingDate|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Адрес за разтоварене</th>
+            <td>{{ booking.unloadingAddress }}</td>
+        </tr>
+        <tr>
+            <th>Дата на разтоварене</th>
+            <td>{{ booking.unloadingDate ? booking.unloadingDate|date('Y-m-d H:i:s') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Навло</th>
+            <td>{{ booking.pricePerKm }}</td>
+        </tr>
+        <tr>
+            <th>Клиент</th>
+            <td><a href="{{ path('customer_show', {'id': booking.customer.id}) }}">{{ booking.customer.name }}</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    {% if is_granted('ROLE_ADMIN') %}
+        {{ include('booking/_delete_form.html.twig') }}
+    {% endif %}
+        {{ include('booking/_complete_form.html.twig') }}
+
+    <a href="{{ path('booking_edit', {'id': booking.id}) }}">Редактирай</a>
+
+    <a href="{{ path('booking_test') }}">Назад</a>
+
+
+{% endblock %}

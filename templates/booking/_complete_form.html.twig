@@ -1,0 +1,5 @@
+<form method="POST" action="{{ path('booking_complete', {'id': booking.id}) }}"
+      onsubmit="return confirm('Сигурни ли, че искате да приключите? ');">
+    <input type="hidden" name="_method" value="POST">
+    <button class="btn btn-success">Приключи</button>
+</form>

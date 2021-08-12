@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Market index{% endblock %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Компания</th>
+            <th>Дата на товарене</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Държава</th>
+            <th>Код</th>
+            <th>Град</th>
+            <th>Разстояние</th>
+            <th>Тегло</th>
+            <th>Височина</th>
+            <th>Дължина</th>
+            <th>Вид на товара</th>
+            <th>Вид Ремарке</th>
+            <th>Цена</th>
+            <th>Шофьор</th>
+            <th>Камион</th>
+            <th>Ремърке</th>
+            <th>Клиент</th>
+            <th>Действие</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for booking in bookings %}
+                {% if(booking.status.id != 6) %}
+                    <td><a href="{{ path('booking_update', {'id': booking.id}) }}"> {{ booking.market.author }}</td>
+                {% else  %}
+                    <td>{{ booking.market.author }}</td>
+                {% endif %}
+
+            <td>{{ booking.market.loadingDate ? booking.market.loadingDate|date('Y-m-d') : '' }}</td>
+            <td>{{ booking.market.loadingCountry }}</td>
+            <td>{{ booking.market.loadingZip }}</td>
+            <td>{{ booking.market.loadingTown }}</td>
+            <td>{{ booking.market.unloadingCounty }}</td>
+            <td>{{ booking.market.unloadingZip }}</td>
+            <td>{{ booking.market.unloadingTown }}</td>
+            <td>{{ booking.market.distance }}</td>
+            <td>{{ booking.market.cargoWeight }}</td>
+            <td>{{ booking.market.cargoHeight }}</td>
+            <td>{{ booking.market.cargoLength }}</td>
+            <td> {% for mark in booking.market.cargoType %}
+                    {{ mark.name }}
+                {% endfor %}</td>
+            <td> {% for trail in booking.market.trailerType %}
+                    {{ trail.name }}
+                {% endfor %}</td>
+            <td>{{ booking.market.price }}</td>
+            <td>{{ booking.drivers|default("") }}</td>
+            <td>{{ booking.truck }}</td>
+            <td>{{ booking.trailer }}</td>
+            <td>{{ booking.customer }}</td>
+            <td>{{ booking.status }}</td>
+
+
+        </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
